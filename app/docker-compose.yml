@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=test_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db:/var/lib/postgresql/data
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "5001:5000"
+volumes:
+  db:
